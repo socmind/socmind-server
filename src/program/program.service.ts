@@ -17,7 +17,7 @@ export class ProgramService implements OnModuleInit {
   private userId = 'flynn';
   private programIds: string[] = [];
   private programStates: Map<string, any> = new Map();
-  private currentDelay: number = 10000;
+  private currentDelay: number = 3000;
   private isPaused: boolean = false;
   private pendingMessages: Map<string, Map<string, any>> = new Map();
   private memberChatLocks: Map<string, LastInWinsMutex> = new Map();

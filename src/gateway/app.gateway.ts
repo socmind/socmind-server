@@ -17,7 +17,7 @@ import { ProgramEvents } from 'src/events/program.events';
 
 @WebSocketGateway({
   cors: {
-    origin: 'http://localhost:3000',
+    origin: process.env.CORS_ORIGIN ?? 'http://localhost:3000',
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -38,8 +38,10 @@ export class AppGateway
   ) {}
 
   afterInit() {
-    this.logger.log('WebSocket Gateway initialized');
-    
+    this.logger.log(
+      `WebSocket Gateway initialized with CORS origin ${process.env.CORS_ORIGIN ?? 'http://localhost:3000'}`,
+    );
+
     // Subscribe to program events
     this.programEvents.pauseStatus$.subscribe((status) => {
       if (this.userSocket) {

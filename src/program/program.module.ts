@@ -1,6 +1,5 @@
 // src/program/program.module.ts
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { ChatModule } from 'src/chat/chat.module';
 import { GatewayModule } from 'src/gateway/gateway.module';
 import { ProgramService } from './program.service';
@@ -14,9 +13,6 @@ import { LlamaState } from './llama/llama.state';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
     ChatModule,
     GatewayModule,
   ],
