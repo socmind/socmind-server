@@ -28,6 +28,7 @@ async function bootstrap() {
     await app.init();
     const server = await app.listen(port);
 
+    logger.log(`CORS enabled with origin ${corsOrigin}`);
     logger.log(`Application is running on: http://${host}:${port}`);
   } catch (error) {
     logger.error('Failed to start the application', error.stack);
