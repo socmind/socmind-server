@@ -13,13 +13,11 @@ async function bootstrap() {
     const configService = app.get(ConfigService);
     const host = configService.get<string>('HOST', '0.0.0.0');
     const port = configService.get<number>('PORT', 3001);
-    const corsOrigin = configService.get<string>(
-      'CORS_ORIGIN',
-      'http://localhost:3000',
-    );
+    const corsOriginEnv = configService.get<string>('CORS_ORIGIN', 'http://localhost:3000');
+    const corsOrigins = corsOriginEnv.split(',').map(origin => origin.trim());
 
     app.enableCors({
-      origin: corsOrigin,
+      origin: corsOrigins,
       methods: ['GET', 'POST'],
       allowedHeaders: ['Content-Type', 'Authorization'],
       credentials: true,
@@ -28,7 +26,7 @@ async function bootstrap() {
     await app.init();
     const server = await app.listen(port);
 
-    logger.log(`CORS enabled with origin ${corsOrigin}`);
+    logger.log(`CORS enabled with origins: ${corsOrigins}`);
     logger.log(`Application is running on: http://${host}:${port}`);
   } catch (error) {
     logger.error('Failed to start the application', error.stack);
