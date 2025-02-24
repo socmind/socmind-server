@@ -44,6 +44,14 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
           },
         },
         messages: {
+          select: {
+            id: true,
+            content: true,
+            senderId: true,
+            chatId: true,
+            createdAt: true,
+            type: true,
+          },
           orderBy: {
             createdAt: 'desc',
           },
@@ -62,7 +70,7 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
       createdAt: chat.createdAt,
       updatedAt: chat.updatedAt,
       memberIds: chat.members.map((member) => member.memberId),
-      latestMessage: (chat.messages[0] ?? null) as Message | null,
+      latestMessage: chat.messages[0] || null,
     }));
   }
 

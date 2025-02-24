@@ -14,7 +14,7 @@ import { ProgramEvents } from 'src/events/program.events';
 
 @Injectable()
 export class ProgramService implements OnModuleInit {
-  private userId = 'flynn';
+  private userId = 'user';
   private programIds: string[] = [];
   private programStates: Map<string, any> = new Map();
   private currentDelay: number = 3000;

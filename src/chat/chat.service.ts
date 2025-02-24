@@ -8,7 +8,7 @@ import { ChatPrompts } from './chat.prompts';
 @Injectable()
 export class ChatService implements OnModuleInit {
   private chatDirectory: Map<string, string[]> = new Map();
-  private readonly userId = 'flynn';
+  private readonly userId = 'user';
 
   constructor(
     private prismaService: PrismaService,
@@ -115,11 +115,13 @@ export class ChatService implements OnModuleInit {
   ): Promise<Message> {
     const members = await this.prismaService.getMembersByIds(memberIds);
 
-    const memberInfo = members
-      .map((member) => `${member.name}: ${member.description}`)
-      .join('\n');
+    // const memberInfo = members
+    //   .map((member) => `${member.name}: ${member.description}`)
+    //   .join('\n');
 
-    const directory = `Conversation created with the following members:\n${memberInfo}\n`;
+    // const directory = `Conversation created with the following members:\n${memberInfo}\n`;
+
+    const directory = `Conversation created with the following members: ${members.map((member) => `${member.name}`).join(', ')}`;
 
     const guidelines = this.chatPrompts.getTaskDelegationPrompt();
 

@@ -6,14 +6,14 @@ async function main() {
   console.log('Starting seeding process...');
 
   // Seeding Members
-  const flynn = await prisma.member.upsert({
-    where: { id: 'flynn' },
+  const user = await prisma.member.upsert({
+    where: { id: 'user' },
     update: {},
     create: {
-      id: 'flynn',
-      name: 'Flynn',
-      username: 'flynn',
-      email: 'flynn@encom.com',
+      id: 'user',
+      name: 'User',
+      username: 'username',
+      email: 'user@encom.com',
       type: MemberType.USER,
     },
   });
@@ -26,6 +26,7 @@ async function main() {
       name: 'GPT-4o',
       username: 'gpt-4o',
       systemMessage: `Your name is GPT-4o. Prepend "GPT-4o: " to your messages.
+      Enclose
       In group conversations, you should only speak when you have something meaningful to contribute.
       If you deem that nothing needs to be said, reply with just the empty string, without "GPT-4o: " prepended.`,
       type: MemberType.PROGRAM,
@@ -89,7 +90,7 @@ async function main() {
   });
 
   console.log('Seeded members:');
-  console.log(flynn.id);
+  console.log(user.id);
   console.log(gpt4o.id);
   console.log(claude.id);
   console.log(gemini.id);
@@ -99,10 +100,10 @@ async function main() {
   // Seeding Chats
   const chat1 = await prisma.chat.create({
     data: {
-      name: 'New Chat',
+      name: 'Chat with gemini',
       members: {
         create: [
-          { memberId: flynn.id },
+          { memberId: user.id },
           { memberId: gemini.id },
         ],
       },

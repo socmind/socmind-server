@@ -30,7 +30,7 @@ export class AppGateway
   @WebSocketServer()
   server: Server;
   private userSocket: Socket | null = null;
-  private readonly userId = 'flynn';
+  private readonly userId = 'user';
   private readonly logger = new Logger(AppGateway.name);
 
   constructor(

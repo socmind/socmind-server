@@ -6,7 +6,7 @@ import { AppGateway } from 'src/gateway/app.gateway';
 
 @Injectable()
 export class UserService {
-  private readonly memberId = 'flynn';
+  private readonly memberId = 'user';
 
   constructor(
     private readonly chatService: ChatService,
