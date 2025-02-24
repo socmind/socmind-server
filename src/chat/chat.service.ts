@@ -301,7 +301,7 @@ export class ChatService implements OnModuleInit {
   }
 
   async getInitialChatData() {
-    const chats = await this.prismaService.getAllChatsWithLastMessage();
+    const chats = await this.prismaService.getAllChatsWithLatestMessage();
     return chats;
   }
 

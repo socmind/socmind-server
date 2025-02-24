@@ -7,7 +7,7 @@ import { AppGateway } from 'src/gateway/app.gateway';
 
 @Injectable()
 export class GeminiState {
-  private readonly memberId = 'gemini-1.5';
+  private readonly memberId = 'gemini-2.0-flash';
   private readonly googleAi: GoogleGenerativeAI;
 
   constructor(
@@ -57,7 +57,7 @@ export class GeminiState {
         model: string;
         systemInstruction?: string;
       } = {
-        model: 'gemini-1.5-pro-latest',
+        model: 'gemini-2.0-flash',
       };
 
       if (systemMessage) {
@@ -71,11 +71,19 @@ export class GeminiState {
       });
 
       const message = result.response.text();
+      const content = message.trim();
 
-      if (message.trim() === '') {
+      if (
+        content === '' ||
+        content === '"' ||
+        content === "'" ||
+        content === '```' ||
+        content === '""' ||
+        content === "''"
+      ) {
         return;
       } else {
-        return { text: message };
+        return { text: content };
       }
     } catch (error) {
       console.error('Error calling Gemini:', error);

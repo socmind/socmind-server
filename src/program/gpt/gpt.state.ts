@@ -74,11 +74,19 @@ export class GptState {
 
       if (response.choices.length > 0) {
         const message = response.choices[0].message;
+        const content = message.content.trim();
 
-        if (message.content.trim() === '') {
+        if (
+          content === '' ||
+          content === '"' ||
+          content === "'" ||
+          content === '```' ||
+          content === '""' ||
+          content === "''"
+        ) {
           return;
         } else {
-          return { text: message.content };
+          return { text: content };
         }
       } else {
         throw new Error('No content received from OpenAI.');

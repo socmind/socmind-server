@@ -106,10 +106,19 @@ export class ClaudeState {
         text += `Calling tool '${contentBlock.name}' with input '${JSON.stringify(contentBlock.input)}'.`;
       }
 
-      if (text.trim() === '') {
+      const content = text.trim();
+
+      if (
+        content === '' ||
+        content === '"' ||
+        content === "'" ||
+        content === '```' ||
+        content === '""' ||
+        content === "''"
+      ) {
         return;
       } else {
-        return { text: text };
+        return { text: content };
       }
     } catch (error) {
       console.error('Error calling Anthropic:', error);

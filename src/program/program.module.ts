@@ -10,6 +10,7 @@ import { ClaudeState } from './claude/claude.state';
 import { GeminiState } from './gemini/gemini.state';
 import { GrokState } from './grok/grok.state';
 import { LlamaState } from './llama/llama.state';
+import { DeepseekState } from './deepseek/deepseek.state';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { LlamaState } from './llama/llama.state';
     ClaudeState,
     GeminiState,
     GrokState,
-    LlamaState
+    LlamaState,
+    DeepseekState,
   ],
   controllers: [ProgramController],
 })

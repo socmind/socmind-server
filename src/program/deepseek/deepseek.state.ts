@@ -1,4 +1,4 @@
-// src/program/llama/llama.state.ts
+// src/program/deepseek/deepseek.state.ts
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ChatService } from 'src/chat/chat.service';
@@ -6,8 +6,8 @@ import OpenAI from 'openai';
 import { AppGateway } from 'src/gateway/app.gateway';
 
 @Injectable()
-export class LlamaState {
-  private readonly memberId = 'llama-3.3';
+export class DeepseekState {
+  private readonly memberId = 'deepseek-r1';
   private readonly openAi: OpenAI;
 
   constructor(
@@ -71,7 +71,7 @@ export class LlamaState {
       }
 
       const response = await this.openAi.chat.completions.create({
-        model: 'meta-llama/Llama-3.3-70B-Instruct',
+        model: 'deepseek-ai/DeepSeek-R1',
         messages: formattedMessages,
       });
 

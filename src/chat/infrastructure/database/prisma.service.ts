@@ -35,7 +35,7 @@ export class PrismaService implements OnModuleInit, OnModuleDestroy {
     });
   }
 
-  async getAllChatsWithLastMessage() {
+  async getAllChatsWithLatestMessage() {
     const chats = await this.prisma.chat.findMany({
       include: {
         members: {
