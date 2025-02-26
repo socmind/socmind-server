@@ -18,7 +18,7 @@ export class ProgramService implements OnModuleInit {
   private userId = 'user';
   private programIds: string[] = [];
   private programStates: Map<string, any> = new Map();
-  private currentDelay: number = 1000;
+  private currentDelay: number = 0;
   private isPaused: boolean = false;
   private pendingMessages: Map<string, Map<string, any>> = new Map();
   private memberChatLocks: Map<string, LastInWinsMutex> = new Map();
@@ -38,7 +38,7 @@ export class ProgramService implements OnModuleInit {
     private readonly programEvents: ProgramEvents,
   ) {
     this.programStates.set('gpt-4o', this.gptState);
-    this.programStates.set('claude-3.5', this.claudeState);
+    this.programStates.set('sonnet-3.7', this.claudeState);
     this.programStates.set('gemini-2.0-flash', this.geminiState);
     this.programStates.set('grok-2', this.grokState);
     this.programStates.set('llama-3.3', this.llamaState);

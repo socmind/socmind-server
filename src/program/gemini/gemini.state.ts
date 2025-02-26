@@ -73,14 +73,7 @@ export class GeminiState {
       const message = result.response.text();
       const content = message.trim();
 
-      if (
-        content === '' ||
-        content === '"' ||
-        content === "'" ||
-        content === '```' ||
-        content === '""' ||
-        content === "''"
-      ) {
+      if (content.toLowerCase().includes('nihil dicendum')) {
         return;
       } else {
         return { text: content };

@@ -7,7 +7,7 @@ import { AppGateway } from 'src/gateway/app.gateway';
 
 @Injectable()
 export class ClaudeState {
-  private readonly memberId = 'claude-3.5';
+  private readonly memberId = 'sonnet-3.7';
   private readonly anthropic: Anthropic;
 
   constructor(
@@ -83,7 +83,7 @@ export class ClaudeState {
         max_tokens: number;
         system?: string;
       } = {
-        model: 'claude-3-5-sonnet-20240620',
+        model: 'claude-3-7-sonnet-20250219',
         messages: formattedMessages,
         max_tokens: 1024,
       };
@@ -108,14 +108,7 @@ export class ClaudeState {
 
       const content = text.trim();
 
-      if (
-        content === '' ||
-        content === '"' ||
-        content === "'" ||
-        content === '```' ||
-        content === '""' ||
-        content === "''"
-      ) {
+      if (content.toLowerCase().includes('nihil dicendum')) {
         return;
       } else {
         return { text: content };

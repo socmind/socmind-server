@@ -79,14 +79,7 @@ export class DeepseekState {
         const message = response.choices[0].message;
         const content = message.content.trim();
 
-        if (
-          content === '' ||
-          content === '"' ||
-          content === "'" ||
-          content === '```' ||
-          content === '""' ||
-          content === "''"
-        ) {
+        if (content.toLowerCase().includes('nihil dicendum')) {
           return;
         } else {
           return { text: content };

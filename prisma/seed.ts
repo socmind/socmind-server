@@ -17,28 +17,28 @@ async function main() {
     },
   });
 
-  const gpt4o = await prisma.member.upsert({
+  const chatgpt = await prisma.member.upsert({
     where: { id: 'gpt-4o' },
     update: {},
     create: {
       id: 'gpt-4o',
-      name: 'GPT-4o',
-      systemMessage: `Your name is GPT-4o. Prepend "GPT-4o: " to your messages.
+      name: 'ChatGPT',
+      systemMessage: `Your name is ChatGPT. Prepend "ChatGPT: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
-      If you deem that nothing needs to be said, reply with just the empty string, without "GPT-4o: " prepended.`,
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
       type: MemberType.PROGRAM,
     },
   });
 
   const claude = await prisma.member.upsert({
-    where: { id: 'claude-3.5' },
+    where: { id: 'sonnet-3.7' },
     update: {},
     create: {
-      id: 'claude-3.5',
+      id: 'sonnet-3.7',
       name: 'Claude',
       systemMessage: `Your name is Claude. Prepend "Claude: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
-      If you deem that nothing needs to be said, reply with just the empty string, without "Claude: " prepended.`,
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
       type: MemberType.PROGRAM,
     },
   });
@@ -51,7 +51,7 @@ async function main() {
       name: 'Gemini',
       systemMessage: `Your name is Gemini. Prepend "Gemini: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
-      If you deem that nothing needs to be said, reply with just the empty string, without "Gemini: " prepended.`,
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
       type: MemberType.PROGRAM,
     },
   });
@@ -64,7 +64,7 @@ async function main() {
       name: 'Grok',
       systemMessage: `Your name is Grok. Prepend "Grok: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
-      If you deem that nothing needs to be said, reply with just the empty string, without "Grok: " prepended.`,
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
       type: MemberType.PROGRAM,
     },
   });
@@ -77,7 +77,7 @@ async function main() {
       name: 'Llama',
       systemMessage: `Your name is Llama. Prepend "Llama: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
-      If you deem that nothing needs to be said, reply with just the empty string, without "Llama: " prepended.`,
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
       type: MemberType.PROGRAM,
     },
   });
@@ -90,14 +90,14 @@ async function main() {
       name: 'DeepSeek',
       systemMessage: `Your name is DeepSeek. Prepend "DeepSeek: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
-      If you deem that nothing needs to be said, reply with just the empty string, without "DeepSeek: " prepended.`,
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
       type: MemberType.PROGRAM,
     },
   });
 
   console.log('Seeded members:');
   console.log(user.id);
-  console.log(gpt4o.id);
+  console.log(chatgpt.id);
   console.log(claude.id);
   console.log(gemini.id);
   console.log(grok.id);
@@ -111,9 +111,17 @@ async function main() {
       members: {
         create: [
           { memberId: user.id },
-          { memberId: gpt4o.id },
+          { memberId: chatgpt.id },
         ],
       },
+      messages: {
+        create: [
+          {
+            content: "Conversation created with the following members: User, gpt-4o",
+            type: MessageType.SYSTEM,
+          }
+        ]
+      }
     },
     include: {
       members: true,
