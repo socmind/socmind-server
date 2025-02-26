@@ -12,7 +12,6 @@ async function main() {
     create: {
       id: 'user',
       name: 'User',
-      username: 'username',
       email: 'user@encom.com',
       type: MemberType.USER,
     },
@@ -24,9 +23,7 @@ async function main() {
     create: {
       id: 'gpt-4o',
       name: 'GPT-4o',
-      username: 'gpt-4o',
       systemMessage: `Your name is GPT-4o. Prepend "GPT-4o: " to your messages.
-      Enclose
       In group conversations, you should only speak when you have something meaningful to contribute.
       If you deem that nothing needs to be said, reply with just the empty string, without "GPT-4o: " prepended.`,
       type: MemberType.PROGRAM,
@@ -39,7 +36,6 @@ async function main() {
     create: {
       id: 'claude-3.5',
       name: 'Claude',
-      username: 'claude-3.5',
       systemMessage: `Your name is Claude. Prepend "Claude: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
       If you deem that nothing needs to be said, reply with just the empty string, without "Claude: " prepended.`,
@@ -53,7 +49,6 @@ async function main() {
     create: {
       id: 'gemini-2.0-flash',
       name: 'Gemini',
-      username: 'gemini-2.0-flash',
       systemMessage: `Your name is Gemini. Prepend "Gemini: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
       If you deem that nothing needs to be said, reply with just the empty string, without "Gemini: " prepended.`,
@@ -67,7 +62,6 @@ async function main() {
     create: {
       id: 'grok-2',
       name: 'Grok',
-      username: 'grok-2',
       systemMessage: `Your name is Grok. Prepend "Grok: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
       If you deem that nothing needs to be said, reply with just the empty string, without "Grok: " prepended.`,
@@ -81,7 +75,6 @@ async function main() {
     create: {
       id: 'llama-3.3',
       name: 'Llama',
-      username: 'llama-3.3',
       systemMessage: `Your name is Llama. Prepend "Llama: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
       If you deem that nothing needs to be said, reply with just the empty string, without "Llama: " prepended.`,
@@ -95,7 +88,6 @@ async function main() {
     create: {
       id: 'deepseek-r1',
       name: 'DeepSeek',
-      username: 'deepseek-r1',
       systemMessage: `Your name is DeepSeek. Prepend "DeepSeek: " to your messages.
       In group conversations, you should only speak when you have something meaningful to contribute.
       If you deem that nothing needs to be said, reply with just the empty string, without "DeepSeek: " prepended.`,
