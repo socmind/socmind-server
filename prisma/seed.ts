@@ -159,7 +159,7 @@ async function main() {
       messages: {
         create: [
           {
-            content: "Conversation created with the following members: User, gpt-4o",
+            content: { text: "Conversation created with the following members: User, gpt-4o" },
             type: MessageType.SYSTEM,
           }
         ]
