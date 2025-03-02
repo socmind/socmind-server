@@ -6,6 +6,7 @@ import { ProgramService } from './program.service';
 import { ProgramController } from './program.controller';
 import { LastInWinsMutex } from './program.mutex';
 import { Gpt4oState } from './gpt-4o/gpt-4o.state';
+import { o3MiniState } from './o3-mini/o3-mini.state';
 import { ClaudeState } from './claude/claude.state';
 import { GeminiState } from './gemini/gemini.state';
 import { GrokState } from './grok/grok.state';
@@ -14,7 +15,6 @@ import { DeepseekState } from './deepseek/deepseek.state';
 import { QwenState } from './qwen/qwen.state';
 import { KimiState } from './kimi/kimi.state';
 import { StepState } from './step/step.state';
-import { o3MiniState } from './o3-mini/o3-mini.state';
 
 @Module({
   imports: [
@@ -25,6 +25,7 @@ import { o3MiniState } from './o3-mini/o3-mini.state';
     ProgramService,
     LastInWinsMutex,
     Gpt4oState,
+    o3MiniState,
     ClaudeState,
     GeminiState,
     GrokState,
@@ -33,7 +34,6 @@ import { o3MiniState } from './o3-mini/o3-mini.state';
     QwenState,
     KimiState,
     StepState,
-    o3MiniState,
   ],
   controllers: [ProgramController],
 })
