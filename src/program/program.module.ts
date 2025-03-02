@@ -11,6 +11,9 @@ import { GeminiState } from './gemini/gemini.state';
 import { GrokState } from './grok/grok.state';
 import { LlamaState } from './llama/llama.state';
 import { DeepseekState } from './deepseek/deepseek.state';
+import { QwenState } from './qwen/qwen.state';
+import { KimiState } from './kimi/kimi.state';
+import { StepState } from './step/step.state';
 
 @Module({
   imports: [
@@ -26,6 +29,9 @@ import { DeepseekState } from './deepseek/deepseek.state';
     GrokState,
     LlamaState,
     DeepseekState,
+    QwenState,
+    KimiState,
+    StepState,
   ],
   controllers: [ProgramController],
 })

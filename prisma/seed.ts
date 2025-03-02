@@ -95,6 +95,45 @@ async function main() {
     },
   });
 
+  const qwen = await prisma.member.upsert({
+    where: { id: 'qwen-max' },
+    update: {},
+    create: {
+      id: 'qwen-max',
+      name: 'Qwen',
+      systemMessage: `Your name is Qwen. Prepend "Qwen: " to your messages.
+      In group conversations, you should only speak when you have something meaningful to contribute.
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
+      type: MemberType.PROGRAM,
+    },
+  });
+
+  const kimi = await prisma.member.upsert({
+    where: { id: 'kimi-latest' },
+    update: {},
+    create: {
+      id: 'kimi-latest',
+      name: 'Kimi',
+      systemMessage: `Your name is Kimi. Prepend "Kimi: " to your messages.
+      In group conversations, you should only speak when you have something meaningful to contribute.
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
+      type: MemberType.PROGRAM,
+    },
+  });
+
+  const step = await prisma.member.upsert({
+    where: { id: 'step-2-16k' },
+    update: {},
+    create: {
+      id: 'step-2-16k',
+      name: 'Step',
+      systemMessage: `Your name is Step. Prepend "Step: " to your messages.
+      In group conversations, you should only speak when you have something meaningful to contribute.
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
+      type: MemberType.PROGRAM,
+    },
+  });
+
   console.log('Seeded members:');
   console.log(user.id);
   console.log(chatgpt.id);
@@ -103,6 +142,9 @@ async function main() {
   console.log(grok.id);
   console.log(llama.id);
   console.log(deepseek.id);
+  console.log(qwen.id);
+  console.log(kimi.id);
+  console.log(step.id);
 
   // Seeding Chats
   const chat1 = await prisma.chat.create({

@@ -12,6 +12,9 @@ import { LlamaState } from './llama/llama.state';
 import { DeepseekState } from './deepseek/deepseek.state';
 import { LastInWinsMutex } from './program.mutex';
 import { ProgramEvents } from 'src/events/program.events';
+import { QwenState } from './qwen/qwen.state';
+import { KimiState } from './kimi/kimi.state';
+import { StepState } from './step/step.state';
 
 @Injectable()
 export class ProgramService implements OnModuleInit {
@@ -29,13 +32,16 @@ export class ProgramService implements OnModuleInit {
   constructor(
     private readonly chatService: ChatService,
     private readonly chatAdmin: ChatAdmin,
+    private readonly programEvents: ProgramEvents,
     private readonly gptState: GptState,
     private readonly claudeState: ClaudeState,
     private readonly geminiState: GeminiState,
     private readonly grokState: GrokState,
     private readonly llamaState: LlamaState,
     private readonly deepseekState: DeepseekState,
-    private readonly programEvents: ProgramEvents,
+    private readonly qwenState: QwenState,
+    private readonly kimiState: KimiState,
+    private readonly stepState: StepState,
   ) {
     this.programStates.set('gpt-4o', this.gptState);
     this.programStates.set('sonnet-3.7', this.claudeState);
@@ -43,6 +49,9 @@ export class ProgramService implements OnModuleInit {
     this.programStates.set('grok-2', this.grokState);
     this.programStates.set('llama-3.3', this.llamaState);
     this.programStates.set('deepseek-r1', this.deepseekState);
+    this.programStates.set('qwen-max', this.qwenState);
+    this.programStates.set('kimi-latest', this.kimiState);
+    this.programStates.set('step-2-16k', this.stepState);
   }
 
   async onModuleInit() {
@@ -224,7 +233,8 @@ export class ProgramService implements OnModuleInit {
     }
     this.messageCounter = 0;
     console.log(
-      `Auto-pause ${enabled ? 'enabled' : 'disabled'}${enabled ? ` with threshold of ${this.autoPauseThreshold} messages` : ''
+      `Auto-pause ${enabled ? 'enabled' : 'disabled'}${
+        enabled ? ` with threshold of ${this.autoPauseThreshold} messages` : ''
       }`,
     );
   }
