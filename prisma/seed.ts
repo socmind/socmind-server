@@ -30,18 +30,18 @@ async function main() {
     },
   });
 
-  const o3mini = await prisma.member.upsert({
-    where: { id: 'o3-mini' },
-    update: {},
-    create: {
-      id: 'o3-mini',
-      name: 'o3-mini',
-      systemMessage: `Your name is o3-mini. Prepend "o3-mini: " to your messages.
-      In group conversations, you should only speak when you have something meaningful to contribute.
-      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
-      type: MemberType.PROGRAM,
-    },
-  });
+  // const o3mini = await prisma.member.upsert({
+  //   where: { id: 'o3-mini' },
+  //   update: {},
+  //   create: {
+  //     id: 'o3-mini',
+  //     name: 'o3-mini',
+  //     systemMessage: `Your name is o3-mini. Prepend "o3-mini: " to your messages.
+  //     In group conversations, you should only speak when you have something meaningful to contribute.
+  //     If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
+  //     type: MemberType.PROGRAM,
+  //   },
+  // });
 
   const claude = await prisma.member.upsert({
     where: { id: 'sonnet-3.7' },
@@ -150,7 +150,7 @@ async function main() {
   console.log('Seeded members:');
   console.log(user.id);
   console.log(gpt4o.id);
-  console.log(o3mini.id);
+  // console.log(o3mini.id);
   console.log(claude.id);
   console.log(gemini.id);
   console.log(grok.id);

@@ -46,7 +46,7 @@ export class ProgramService implements OnModuleInit {
     private readonly stepState: StepState,
   ) {
     this.programStates.set('gpt-4o', this.gpt4oState);
-    this.programStates.set('o3-mini', this.o3MiniState);
+    // this.programStates.set('o3-mini', this.o3MiniState);
     this.programStates.set('sonnet-3.7', this.claudeState);
     this.programStates.set('gemini-2.0-flash', this.geminiState);
     this.programStates.set('grok-2', this.grokState);
