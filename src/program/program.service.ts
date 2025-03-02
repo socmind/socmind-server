@@ -4,7 +4,8 @@ import { Message } from '@prisma/client';
 import { setTimeout } from 'timers/promises';
 import { ChatService } from 'src/chat/chat.service';
 import { ChatAdmin } from 'src/chat/chat.admin';
-import { GptState } from './gpt/gpt.state';
+import { Gpt4oState } from './gpt-4o/gpt-4o.state';
+import { o3MiniState } from './o3-mini/o3-mini.state';
 import { ClaudeState } from './claude/claude.state';
 import { GeminiState } from './gemini/gemini.state';
 import { GrokState } from './grok/grok.state';
@@ -33,7 +34,8 @@ export class ProgramService implements OnModuleInit {
     private readonly chatService: ChatService,
     private readonly chatAdmin: ChatAdmin,
     private readonly programEvents: ProgramEvents,
-    private readonly gptState: GptState,
+    private readonly gpt4oState: Gpt4oState,
+    private readonly o3MiniState: o3MiniState,
     private readonly claudeState: ClaudeState,
     private readonly geminiState: GeminiState,
     private readonly grokState: GrokState,
@@ -43,7 +45,8 @@ export class ProgramService implements OnModuleInit {
     private readonly kimiState: KimiState,
     private readonly stepState: StepState,
   ) {
-    this.programStates.set('gpt-4o', this.gptState);
+    this.programStates.set('gpt-4o', this.gpt4oState);
+    // this.programStates.set('o3-mini', this.o3MiniState);
     this.programStates.set('sonnet-3.7', this.claudeState);
     this.programStates.set('gemini-2.0-flash', this.geminiState);
     this.programStates.set('grok-2', this.grokState);

@@ -5,7 +5,7 @@ import { GatewayModule } from 'src/gateway/gateway.module';
 import { ProgramService } from './program.service';
 import { ProgramController } from './program.controller';
 import { LastInWinsMutex } from './program.mutex';
-import { GptState } from './gpt/gpt.state';
+import { Gpt4oState } from './gpt-4o/gpt-4o.state';
 import { ClaudeState } from './claude/claude.state';
 import { GeminiState } from './gemini/gemini.state';
 import { GrokState } from './grok/grok.state';
@@ -14,6 +14,7 @@ import { DeepseekState } from './deepseek/deepseek.state';
 import { QwenState } from './qwen/qwen.state';
 import { KimiState } from './kimi/kimi.state';
 import { StepState } from './step/step.state';
+import { o3MiniState } from './o3-mini/o3-mini.state';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { StepState } from './step/step.state';
   providers: [
     ProgramService,
     LastInWinsMutex,
-    GptState,
+    Gpt4oState,
     ClaudeState,
     GeminiState,
     GrokState,
@@ -32,6 +33,7 @@ import { StepState } from './step/step.state';
     QwenState,
     KimiState,
     StepState,
+    o3MiniState,
   ],
   controllers: [ProgramController],
 })

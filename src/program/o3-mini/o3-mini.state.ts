@@ -1,4 +1,4 @@
-// src/program/gpt/gpt.state.ts
+// src/program/o3-mini/o3-mini.state.ts
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ChatService } from 'src/chat/chat.service';
@@ -6,8 +6,8 @@ import OpenAI from 'openai';
 import { AppGateway } from 'src/gateway/app.gateway';
 
 @Injectable()
-export class GptState {
-  private readonly memberId = 'gpt-4o';
+export class o3MiniState {
+  private readonly memberId = 'o3-mini';
   private readonly openAi: OpenAI;
 
   constructor(
@@ -68,7 +68,7 @@ export class GptState {
       }
 
       const response = await this.openAi.chat.completions.create({
-        model: 'gpt-4o',
+        model: 'o3-mini',
         messages: formattedMessages,
       });
 
