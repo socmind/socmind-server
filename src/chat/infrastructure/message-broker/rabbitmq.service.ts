@@ -6,7 +6,7 @@ import * as amqplib from 'amqplib';
 
 @Injectable()
 export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
-  private connection: amqplib.Connection;
+  private connection: amqplib.ChannelModel;
   private channel: amqplib.Channel;
   private serviceExchange = 'service_exchange';
 
@@ -34,13 +34,13 @@ export class RabbitMQService implements OnModuleInit, OnModuleDestroy {
     try {
       const rabbitmqUrl = this.configService.get<string>('RABBITMQ_URL');
       console.log('Connecting to RabbitMQ...');
-      
-      this.connection = await amqplib.connect(rabbitmqUrl, {heartbeat: 60});
+
+      this.connection = await amqplib.connect(rabbitmqUrl, { heartbeat: 60 });
       console.log('RabbitMQ connection established');
-      
+
       this.channel = await this.connection.createChannel();
       console.log('RabbitMQ channel created');
-      
+
       await this.createServiceExchange();
       this.setupErrorHandlers();
       console.log('RabbitMQ initialization completed');

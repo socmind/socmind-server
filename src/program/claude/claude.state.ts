@@ -99,11 +99,30 @@ export class ClaudeState {
       }
 
       let text = '';
-      const contentBlock = response.content[0];
-      if (contentBlock.type === 'text') {
-        text += contentBlock.text;
-      } else {
-        text += `Calling tool '${contentBlock.name}' with input '${JSON.stringify(contentBlock.input)}'.`;
+      const contentBlock = response.content[0] as {
+        type: string;
+        text?: string;
+        name?: string;
+        input?: any;
+        thinking?: string;
+      };
+
+      // Handle different content block types
+      switch (contentBlock.type) {
+        case 'text':
+          text += contentBlock.text;
+          break;
+        case 'tool_use':
+          text += `Calling tool '${contentBlock.name}' with input '${JSON.stringify(contentBlock.input)}'.`;
+          break;
+        case 'thinking':
+          text += `Thinking: ${contentBlock.thinking}`;
+          break;
+        case 'redacted_thinking':
+          text += `[Redacted thinking]`;
+          break;
+        default:
+          text += `[Unknown content type]`;
       }
 
       const content = text.trim();
