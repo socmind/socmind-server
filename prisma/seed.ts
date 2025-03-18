@@ -30,18 +30,18 @@ async function main() {
     },
   });
 
-  // const o3mini = await prisma.member.upsert({
-  //   where: { id: 'o3-mini' },
-  //   update: {},
-  //   create: {
-  //     id: 'o3-mini',
-  //     name: 'o3-mini',
-  //     systemMessage: `Your name is o3-mini. Prepend "o3-mini: " to your messages.
-  //     In group conversations, you should only speak when you have something meaningful to contribute.
-  //     If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
-  //     type: MemberType.PROGRAM,
-  //   },
-  // });
+  const o3mini = await prisma.member.upsert({
+    where: { id: 'o3-mini' },
+    update: {},
+    create: {
+      id: 'o3-mini',
+      name: 'o3-mini',
+      systemMessage: `Your name is o3-mini. Prepend "o3-mini: " to your messages.
+      In group conversations, you should only speak when you have something meaningful to contribute.
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
+      type: MemberType.PROGRAM,
+    },
+  });
 
   const claude = await prisma.member.upsert({
     where: { id: 'sonnet-3.7' },
@@ -147,10 +147,23 @@ async function main() {
     },
   });
 
+  const webSearchAgent = await prisma.member.upsert({
+    where: { id: 'web-search-agent' },
+    update: {},
+    create: {
+      id: 'web-search-agent',
+      name: 'Web Search Agent',
+      systemMessage: `Your are the Web Search Agent. Prepend "Web Search Agent: " to your messages.
+      In group conversations, you should only speak when you judge that a web search is needed.
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
+      type: MemberType.PROGRAM,
+    },
+  });
+
   console.log('Seeded members:');
   console.log(user.id);
   console.log(gpt4o.id);
-  // console.log(o3mini.id);
+  console.log(o3mini.id);
   console.log(claude.id);
   console.log(gemini.id);
   console.log(grok.id);
@@ -159,21 +172,24 @@ async function main() {
   console.log(qwen.id);
   console.log(kimi.id);
   console.log(step.id);
+  console.log(webSearchAgent.id);
 
   // Seeding Chats
   const chat1 = await prisma.chat.create({
     data: {
-      name: 'Chat with gpt-4o',
+      name: 'Chat with gpt-4o, sonnet-3.7,and gemini-2.0-flash',
       members: {
         create: [
           { memberId: user.id },
           { memberId: gpt4o.id },
+          { memberId: claude.id },
+          { memberId: gemini.id },
         ],
       },
       messages: {
         create: [
           {
-            content: { text: "Conversation created with the following members: User, gpt-4o" },
+            content: { text: "Conversation created with the following members: User, gpt-4o, sonnet-3.7, and gemini-2.0-flash" },
             type: MessageType.SYSTEM,
           }
         ]

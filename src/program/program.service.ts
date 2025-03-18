@@ -16,6 +16,7 @@ import { ProgramEvents } from 'src/events/program.events';
 import { QwenState } from './qwen/qwen.state';
 import { KimiState } from './kimi/kimi.state';
 import { StepState } from './step/step.state';
+import { WebSearchAgentState } from './web-search-agent/web-search-agent.state';
 
 @Injectable()
 export class ProgramService implements OnModuleInit {
@@ -44,9 +45,10 @@ export class ProgramService implements OnModuleInit {
     private readonly qwenState: QwenState,
     private readonly kimiState: KimiState,
     private readonly stepState: StepState,
+    private readonly webSearchAgentState: WebSearchAgentState,
   ) {
     this.programStates.set('gpt-4o', this.gpt4oState);
-    // this.programStates.set('o3-mini', this.o3MiniState);
+    this.programStates.set('o3-mini', this.o3MiniState);
     this.programStates.set('sonnet-3.7', this.claudeState);
     this.programStates.set('gemini-2.0-flash', this.geminiState);
     this.programStates.set('grok-2', this.grokState);
@@ -55,6 +57,7 @@ export class ProgramService implements OnModuleInit {
     this.programStates.set('qwen-max', this.qwenState);
     this.programStates.set('kimi-latest', this.kimiState);
     this.programStates.set('step-2-16k', this.stepState);
+    this.programStates.set('web-search-agent', this.webSearchAgentState);
   }
 
   async onModuleInit() {

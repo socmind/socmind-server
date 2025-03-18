@@ -15,6 +15,7 @@ import { DeepseekState } from './deepseek/deepseek.state';
 import { QwenState } from './qwen/qwen.state';
 import { KimiState } from './kimi/kimi.state';
 import { StepState } from './step/step.state';
+import { WebSearchAgentState } from './web-search-agent/web-search-agent.state';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { StepState } from './step/step.state';
     QwenState,
     KimiState,
     StepState,
+    WebSearchAgentState,
   ],
   controllers: [ProgramController],
 })
