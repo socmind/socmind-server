@@ -60,7 +60,6 @@ export class ChatService implements OnModuleInit {
     name?: string,
     topic?: string,
     creator?: string,
-    context?: string,
   ) {
     // Ensure this.userId is included in the members list if not already present
     const allMemberIds = [...new Set([...memberIds, this.userId])];
@@ -88,17 +87,13 @@ export class ChatService implements OnModuleInit {
       allMemberIds,
     );
 
-    await this.setFirstMessage(allMemberIds, chat.id, topic);
+    await this.setChatContext(allMemberIds, chat.id, topic);
 
     for (const memberId of allMemberIds) {
       await this.rabbitMQService.sendServiceMessage(memberId, {
         notification: 'NEW_CHAT',
         chatId: chat.id,
       });
-    }
-
-    if (context) {
-      await this.setChatContext(chat.id, context);
     }
 
     this.updateDirectory(chat.id, allMemberIds);
@@ -108,48 +103,51 @@ export class ChatService implements OnModuleInit {
     return chat;
   }
 
-  async setFirstMessage(
+  async setChatContext(
     memberIds: string[],
     chatId: string,
     topic?: string,
   ): Promise<Message> {
     const members = await this.prismaService.getMembersByIds(memberIds);
 
-    // const memberInfo = members
-    //   .map((member) => `${member.name}: ${member.description}`)
-    //   .join('\n');
+    const memberInfo = members
+      .map((member) => {
+        if (member.description) {
+          return `${member.name}: ${member.description}`;
+        }
+        return `${member.name}`;
+      })
+      .join('\n');
 
-    // const directory = `Conversation created with the following members:\n${memberInfo}\n`;
-
-    const directory = `Conversation created with the following members: ${members.map((member) => `${member.name}`).join(', ')}`;
+    const directory = `Conversation created with the following members:\n${memberInfo}\n`;
 
     const guidelines = this.chatPrompts.getTaskDelegationPrompt();
 
     if (topic) {
       const topicMessage = `Here is the topic for the present discussion: ${topic}.\n`;
       const conclusionPrompt = this.chatPrompts.getConclusionPrompt();
-      const firstMessage =
-        directory + topicMessage + conclusionPrompt + guidelines;
+      const context = directory + topicMessage + conclusionPrompt + guidelines;
 
-      const msg = await this.publishMessage(chatId, { text: firstMessage });
+      const msg = await this.publishMessage(chatId, { text: context });
 
-      console.log(`First message sent for chat ${chatId}: ${firstMessage}.`);
+      console.log(`Context sent to chat ${chatId}: ${context}.`);
       return msg;
     } else {
-      // const firstMessage = directory + guidelines;
-      const firstMessage = directory;
+      const context = directory + guidelines;
+
+      await this.prismaService.updateChat(chatId, {
+        context: context,
+      });
 
       const messageData: Prisma.MessageCreateInput = {
         chat: { connect: { id: chatId } },
-        content: { text: firstMessage },
+        content: { text: context },
         type: 'SYSTEM',
       };
 
       const msg = await this.prismaService.createMessage(messageData);
 
-      console.log(
-        `First message added to database for chat ${chatId}: ${firstMessage}.`,
-      );
+      console.log(`Context added to database for chat ${chatId}: ${context}.`);
       return msg;
     }
   }
@@ -183,18 +181,6 @@ export class ChatService implements OnModuleInit {
     this.updateDirectory(chatId, [memberId]);
 
     return chatMember;
-  }
-
-  async setChatContext(chatId: string, context: string) {
-    try {
-      const updatedChat = await this.prismaService.updateChat(chatId, {
-        context: context,
-      });
-      await this.publishMessage(chatId, context);
-      return updatedChat;
-    } catch (error) {
-      throw new Error(`Failed to set chat context: ${error.message}`);
-    }
   }
 
   async setChatConclusion(chatId: string, conclusion: string) {
@@ -278,7 +264,10 @@ export class ChatService implements OnModuleInit {
   }
 
   async updateMember(memberId: string, memberData: Prisma.MemberUpdateInput) {
-    const updatedMember = await this.prismaService.updateMember(memberId, memberData);
+    const updatedMember = await this.prismaService.updateMember(
+      memberId,
+      memberData,
+    );
     return updatedMember;
   }
 
