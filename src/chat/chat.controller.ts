@@ -13,6 +13,16 @@ export class ChatController {
     return members;
   }
 
+  @Post('update-member')
+  async updateMember(@Body() memberData: any) {
+    const { memberId, ...memberDataWithoutId } = memberData;
+    const updatedMember = await this.chatService.updateMember(
+      memberId,
+      memberDataWithoutId
+    );
+    return updatedMember;
+  }
+
   @Post('create')
   async createChat(@Body() chatData: any) {
     const newChat = await this.chatService.createChat(
@@ -35,5 +45,16 @@ export class ChatController {
       createdAt: newChat.createdAt,
       updatedAt: newChat.updatedAt,
     };
+  }
+
+  @Post('update-chat')
+  async updateChat(@Body() chatData: any) {
+    const { chatId, ...chatDataWithoutId } = chatData;
+    const updatedChat = await this.chatService.updateChat(
+      chatId,
+      chatDataWithoutId
+    );
+    
+    return updatedChat;
   }
 }

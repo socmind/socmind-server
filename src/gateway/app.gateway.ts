@@ -1,4 +1,4 @@
-// src/app.gateway.ts
+// src/gateway/app.gateway.ts
 import { Logger } from '@nestjs/common';
 import {
   WebSocketGateway,

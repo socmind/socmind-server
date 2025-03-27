@@ -277,6 +277,11 @@ export class ChatService implements OnModuleInit {
     return members;
   }
 
+  async updateMember(memberId: string, memberData: Prisma.MemberUpdateInput) {
+    const updatedMember = await this.prismaService.updateMember(memberId, memberData);
+    return updatedMember;
+  }
+
   async getMemberChats(memberId: string) {
     const chats = await this.prismaService.getMemberChats(memberId);
     return chats;
@@ -298,6 +303,11 @@ export class ChatService implements OnModuleInit {
     }));
 
     return simplifiedChats;
+  }
+
+  async updateChat(chatId: string, chatData: Prisma.ChatUpdateInput) {
+    const updatedChat = await this.prismaService.updateChat(chatId, chatData);
+    return updatedChat;
   }
 
   async getInitialChatData() {
