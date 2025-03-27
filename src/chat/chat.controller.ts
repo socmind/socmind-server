@@ -3,9 +3,7 @@ import { ChatService } from './chat.service';
 
 @Controller('chat')
 export class ChatController {
-  constructor(
-    private readonly chatService: ChatService
-  ) { }
+  constructor(private readonly chatService: ChatService) {}
 
   @Get('members')
   async getAllMembers() {
@@ -18,7 +16,7 @@ export class ChatController {
     const { memberId, ...memberDataWithoutId } = memberData;
     const updatedMember = await this.chatService.updateMember(
       memberId,
-      memberDataWithoutId
+      memberDataWithoutId,
     );
     return updatedMember;
   }
@@ -30,7 +28,6 @@ export class ChatController {
       chatData.name,
       chatData.topic,
       chatData.creator,
-      chatData.context
     );
 
     // Transform to match client interface
@@ -52,9 +49,9 @@ export class ChatController {
     const { chatId, ...chatDataWithoutId } = chatData;
     const updatedChat = await this.chatService.updateChat(
       chatId,
-      chatDataWithoutId
+      chatDataWithoutId,
     );
-    
+
     return updatedChat;
   }
 }
