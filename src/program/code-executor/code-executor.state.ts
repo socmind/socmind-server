@@ -5,6 +5,7 @@ import { ChatService } from 'src/chat/chat.service';
 import OpenAI from 'openai';
 import { AppGateway } from 'src/gateway/app.gateway';
 import { Sandbox } from '@e2b/code-interpreter';
+import 'dotenv/config';
 
 @Injectable()
 export class CodeExecutorState {
@@ -17,8 +18,6 @@ export class CodeExecutorState {
     private readonly appGateway: AppGateway,
   ) {
     const apiKey = this.configService.get<string>('OPENAI_API_KEY');
-    const e2bApiKey = this.configService.get<string>('E2B_API_KEY');
-    process.env.E2B_API_KEY = apiKey;
     this.openAi = new OpenAI({ apiKey });
   }
 
