@@ -115,25 +115,19 @@ export class CodeExecutorState {
                 const result = execution.text;
 
                 // Send the result back to the model
-                formattedMessages.push({
-                  role: 'user',
-                  content: result,
-                });
+                return { text: result };
               } catch (error) {
                 console.error('Error executing code:', error);
-                formattedMessages.push({
-                  role: 'user',
-                  content: 'Error executing code: ' + error.message,
-                });
+                return { text: 'Error executing code: ' + error.message };
               }
             }
           }
 
-          const finalMessage = await this.openAi.chat.completions.create({
-            model: 'gpt-4o',
-            messages: formattedMessages,
-          });
-          return { text: finalMessage.choices[0].message.content };
+        //   const finalMessage = await this.openAi.chat.completions.create({
+        //     model: 'gpt-4o',
+        //     messages: formattedMessages,
+        //   });
+        //   return { text: finalMessage.choices[0].message.content };
         }
 
         if (responseMessage.content.toLowerCase().includes('nihil dicendum')) {
