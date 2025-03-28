@@ -153,7 +153,7 @@ export class ChatAdmin {
       const delegation = JSON.stringify(taskObj, null, 2);
 
       const msg = `New task delegation proposed by ${senderId}:\n${delegation}\n
-        Waiting for approval from the committee.
+        Waiting for approval from the group.
         To vote, reply 'APPROVE'. Make sure that you fully understand and agree with the proposal before approving.
         If you have a different proposal in mind, reply with the new proposal, and a new round of voting will commence.
         You can also abstain from either approving or suggesting an alternative proposal, and simply voice your opinions, or remain silent.`;
@@ -179,7 +179,7 @@ export class ChatAdmin {
       const conclusion = JSON.stringify(conclusionObj, null, 2);
 
       const msg = `Conclusion proposed by ${senderId}:\n${conclusion}\n
-          Waiting for approval from the committee.
+          Waiting for approval from the group.
           To vote, reply 'APPROVE'. Make sure that you fully understand and agree with the conclusion before approving.
           If you disapprove of this conclusion, voice your concerns. You may also propose a new conclusion, upon which a new round of voting will commence.`;
 

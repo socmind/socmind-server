@@ -16,6 +16,7 @@ import { QwenState } from './qwen/qwen.state';
 import { KimiState } from './kimi/kimi.state';
 import { StepState } from './step/step.state';
 import { WebSearchAgentState } from './web-search-agent/web-search-agent.state';
+import { CodeExecutorState } from './code-executor/code-executor.state';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { WebSearchAgentState } from './web-search-agent/web-search-agent.state';
     KimiState,
     StepState,
     WebSearchAgentState,
+    CodeExecutorState,
   ],
   controllers: [ProgramController],
 })

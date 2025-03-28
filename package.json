@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
+    "@e2b/code-interpreter": "^1.1.0",
     "@google/generative-ai": "^0.24.0",
     "@nestjs/common": "^11.0.11",
     "@nestjs/config": "^4.0.1",

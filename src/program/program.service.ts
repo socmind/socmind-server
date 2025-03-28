@@ -17,6 +17,7 @@ import { QwenState } from './qwen/qwen.state';
 import { KimiState } from './kimi/kimi.state';
 import { StepState } from './step/step.state';
 import { WebSearchAgentState } from './web-search-agent/web-search-agent.state';
+import { CodeExecutorState } from './code-executor/code-executor.state';
 
 @Injectable()
 export class ProgramService implements OnModuleInit {
@@ -46,6 +47,7 @@ export class ProgramService implements OnModuleInit {
     private readonly kimiState: KimiState,
     private readonly stepState: StepState,
     private readonly webSearchAgentState: WebSearchAgentState,
+    private readonly codeExecutorState: CodeExecutorState,
   ) {
     this.programStates.set('gpt-4o', this.gpt4oState);
     this.programStates.set('o3-mini', this.o3MiniState);
@@ -58,6 +60,7 @@ export class ProgramService implements OnModuleInit {
     this.programStates.set('kimi-latest', this.kimiState);
     this.programStates.set('step-2-16k', this.stepState);
     this.programStates.set('web-search-agent', this.webSearchAgentState);
+    this.programStates.set('code-executor', this.codeExecutorState);
   }
 
   async onModuleInit() {

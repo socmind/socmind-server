@@ -160,6 +160,19 @@ async function main() {
     },
   });
 
+  const codeExecutor = await prisma.member.upsert({
+    where: { id: 'code-executor' },
+    update: {},
+    create: {
+      id: 'code-executor',
+      name: 'Code Executor',
+      systemMessage: `Your are the Code Executor. Only use the code execution tool when needed. Prepend "Code Executor: " to your messages.
+      In group conversations, you should only speak when you judge that a code execution is needed.
+      If you deem that nothing needs to be said, reply with the string "NIHIL DICENDUM".`,
+      type: MemberType.PROGRAM,
+    },
+  });
+
   console.log('Seeded members:');
   console.log(user.id);
   console.log(gpt4o.id);
@@ -173,6 +186,7 @@ async function main() {
   console.log(kimi.id);
   console.log(step.id);
   console.log(webSearchAgent.id);
+  console.log(codeExecutor.id);
 
   // Seeding Chats
   const chat1 = await prisma.chat.create({
@@ -189,11 +203,13 @@ async function main() {
       messages: {
         create: [
           {
-            content: { text: "Conversation created with the following members: User, gpt-4o, sonnet-3.7, and gemini-2.0-flash" },
+            content: {
+              text: 'Conversation created with the following members: User, gpt-4o, sonnet-3.7, and gemini-2.0-flash',
+            },
             type: MessageType.SYSTEM,
-          }
-        ]
-      }
+          },
+        ],
+      },
     },
     include: {
       members: true,

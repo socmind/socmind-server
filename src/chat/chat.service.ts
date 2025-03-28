@@ -87,7 +87,7 @@ export class ChatService implements OnModuleInit {
       allMemberIds,
     );
 
-    await this.setChatContext(allMemberIds, chat.id, topic);
+    const context = await this.setChatContext(allMemberIds, chat.id, topic);
 
     for (const memberId of allMemberIds) {
       await this.rabbitMQService.sendServiceMessage(memberId, {
@@ -100,14 +100,14 @@ export class ChatService implements OnModuleInit {
 
     console.log(`Chat ${chat.id} created with members: ${allMemberIds}.`);
 
-    return chat;
+    return { ...chat, context };
   }
 
   async setChatContext(
     memberIds: string[],
     chatId: string,
     topic?: string,
-  ): Promise<Message> {
+  ): Promise<string> {
     const members = await this.prismaService.getMembersByIds(memberIds);
 
     const memberInfo = members
@@ -128,10 +128,10 @@ export class ChatService implements OnModuleInit {
       const conclusionPrompt = this.chatPrompts.getConclusionPrompt();
       const context = directory + topicMessage + conclusionPrompt + guidelines;
 
-      const msg = await this.publishMessage(chatId, { text: context });
+      await this.publishMessage(chatId, { text: context });
 
       console.log(`Context sent to chat ${chatId}: ${context}.`);
-      return msg;
+      return context;
     } else {
       const context = directory + guidelines;
 
@@ -145,10 +145,10 @@ export class ChatService implements OnModuleInit {
         type: 'SYSTEM',
       };
 
-      const msg = await this.prismaService.createMessage(messageData);
+      await this.prismaService.createMessage(messageData);
 
-      console.log(`Context added to database for chat ${chatId}: ${context}.`);
-      return msg;
+      console.log(`Context added to chat ${chatId}: ${context}.`);
+      return context;
     }
   }
 
