@@ -205,7 +205,7 @@ export class ChatAdmin {
 
         if (this.isMajority(chatId)) {
           await this.chatService.publishMessage(chatId, content, senderId);
-          await this.executeCommand(command);
+          await this.executeCommand(chatId);
           return;
         }
 
