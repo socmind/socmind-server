@@ -1,6 +1,8 @@
-## Description
-
 Server for https://societyofmind.ai.
+
+See https://deepwiki.com/socmind/socmind-server for an overview of the system architecture.
+
+
 
 ## Installation
 
